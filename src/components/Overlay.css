@@ -23,8 +23,8 @@
 
 .image-overlay {
   position: relative;
-  width: 60%;
-  /* height: 400px; */
+  width: 500px;
+  height: 400px;
   background-size: cover;
   background-position: center;
   border: 1px solid #000;
