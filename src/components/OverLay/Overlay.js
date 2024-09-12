@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import html2canvas from 'html2canvas';
 import './Overlay.css';
-import background from '../assets/images/WEB会議用背景画像_背景のみ.png';
+import background from '../../assets/images/WEB会議用背景画像_背景のみ.png';
 
 function Overlay() {
     const [name, setName] = useState('');

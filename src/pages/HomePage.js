@@ -1,10 +1,17 @@
-import Overlay from '../components/Overlay';
+import React from 'react';
+import Overlay from '../components/OverLay/Overlay';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
-const HomePage = () => {
 
+function HomePage() {
     return (
-        <Overlay />
+        <div className="flex flex-col min-h-screen">
+            <Header />
+
+            <Footer />
+        </div>
     );
-};
+}
 
 export default HomePage;
