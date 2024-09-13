@@ -1,4 +1,6 @@
 .header-frame {
     color: #20c9c3;
     font-size: 1.171875rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6 !important;
 }

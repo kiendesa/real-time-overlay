@@ -3,7 +3,7 @@ import './Header.css';
 
 function Header() {
     return (
-        <header className="header-frame text-blue py-4 fixed top-0 w-full border-b border-gray-600">
+        <header className="header-frame text-blue py-4 fixed top-0 w-full">
             <nav className="flex justify-between px-4">
                 <ul className="flex space-x-4">
                     <li>バーチャル名刺背景ジェネレーター</li>

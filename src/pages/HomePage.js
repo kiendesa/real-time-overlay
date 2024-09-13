@@ -8,8 +8,8 @@ function HomePage() {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
-
-            <Footer />
+            <Overlay />
+            {/* <Footer /> */}
         </div>
     );
 }
