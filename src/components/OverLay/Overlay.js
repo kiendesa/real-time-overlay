@@ -5,7 +5,7 @@ import './Overlay.css';
 import background from '../../assets/images/WEB会議用背景画像_背景のみ.png';
 
 function Overlay() {
-    const { name, email } = useContext(OverlayContext); // Lấy giá trị từ Context
+    const { headName, department, center, group, position, name, furigana } = useContext(OverlayContext); // Lấy giá trị từ Context
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -17,6 +17,10 @@ function Overlay() {
         img.src = background;
 
         img.onload = () => {
+            const lineSpacing = 50;
+            const xPosition = 180;
+            let yPosition = 300;
+
             // Set canvas size based on the image
             canvas.width = img.width;
             canvas.height = img.height;
@@ -25,14 +29,29 @@ function Overlay() {
             ctx.drawImage(img, 0, 0, img.width, img.height);
 
             // Set text styles and position for real-time data (name, age)
-            ctx.font = 'bold 36px "Yu Gothic", "游ゴシック", sans-serif';
+            ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
 
-            ctx.fillText(`Name: ${name}`, 180, 260); // Đặt text gần góc trên bên trái
-            ctx.fillText(`Email: ${email}`, 180, 320);   // Tương tự cho email
+            ctx.fillText(`${headName}`, xPosition, yPosition); // Đặt text gần góc trên bên trái
+            ctx.fillText(`${department}`, xPosition, yPosition += lineSpacing);   // Tương tự cho email
+            ctx.fillText(`${center}`, xPosition, yPosition += lineSpacing);
+            ctx.fillText(`${group}`, xPosition, yPosition += lineSpacing);
+            ctx.fillText(`${position}`, xPosition, yPosition += lineSpacing);
+            ctx.fillText(`${furigana}`, xPosition, 640);
+            // Set a different font size for the name field
+            ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif'; // Change font and size for name
+            ctx.fillText(`${name}`, xPosition, 590);  // For name
+
         };
-    }, [name, email]); // Mỗi lần name và age thay đổi, canvas sẽ được cập nhật lại
+    }, [headName, department, center, group, position, name, furigana]); // Mỗi lần name và age thay đổi, canvas sẽ được cập nhật lại
 
     const handleDownload = () => {
+
+        // check validate ở đây...
+        if (headName === '' || department === '' || center === '' || group === '' || position === '' || name === '' || furigana === '') {
+            alert('全てのフィールドに入力してください。');
+            return; // Stop if validation fails
+        }
+
         const canvas = canvasRef.current;
 
         // Convert canvas to image data URL

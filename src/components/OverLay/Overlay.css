@@ -13,11 +13,6 @@
   background-color: rgb(231, 239, 239);
 }
 
-.input-frame-data {
-  border: 1px solid #dee2e6;
-  background-color: #ffffff
-}
-
 .overlay-text {
     position: absolute;
     top: 10vh;
