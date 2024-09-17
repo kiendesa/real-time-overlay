@@ -9,29 +9,30 @@ import background from '../../assets/images/WEB会議用背景画像_背景の�
 function Overlay() {
     const { name, age } = useContext(OverlayContext); // Lấy giá trị từ Context
 
-    const handleDownload = () => {
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                const captureArea = document.getElementById('capture-area');
+    // const handleDownload = () => {
+    //     requestAnimationFrame(() => {
+    //         setTimeout(() => {
+    //             const captureArea = document.getElementById('capture-area');
 
-                // Đảm bảo rằng kích thước của capture-area là kích thước toàn màn hình
-                captureArea.style.width = `${window.innerWidth}px`;
-                captureArea.style.height = `${window.innerHeight}px`;
+    //             // Đảm bảo rằng kích thước của capture-area là kích thước toàn màn hình
+    //             captureArea.style.width = `${window.innerWidth}px`;
+    //             captureArea.style.height = `${window.innerHeight}px`;
 
-                html2canvas(captureArea, { useCORS: true }).then((canvas) => {
-                    const image = canvas.toDataURL('image/png');
-                    const newTab = window.open();
-                    newTab.document.body.innerHTML = `<img src="${image}" alt="Generated Image"/>`;
+    //             html2canvas(captureArea, { useCORS: true }).then((canvas) => {
+    //                 const image = canvas.toDataURL('image/png');
+    //                 const newTab = window.open();
+    //                 newTab.document.body.innerHTML = `<img src="${image}" alt="Generated Image"/>`;
 
-                    // Khôi phục kích thước gốc của capture-area
-                    captureArea.style.width = '';
-                    captureArea.style.height = '';
-                }).catch((error) => {
-                    console.error('Error generating image:', error);
-                });
-            }, 100);
-        });
-    };
+    //                 // Khôi phục kích thước gốc của capture-area
+    //                 captureArea.style.width = '';
+    //                 captureArea.style.height = '';
+    //             }).catch((error) => {
+    //                 console.error('Error generating image:', error);
+    //             });
+    //         }, 100);
+    //     });
+    // };
+
 
 
     const handleDownload = () => {
@@ -83,7 +84,7 @@ function Overlay() {
                 iframe.addEventListener("load", () => {
                     html2canvas(iframe.contentWindow.document.body, { useCORS: true }).then((canvas) => {
                         // Open image in a new tab
-                        const image = canvas.toDataURL('image/jpeg');
+                        const image = canvas.toDataURL('image/png');
                         const newTab = window.open();
                         newTab.document.body.innerHTML = `<img src="${image}" alt="Generated Image" style="width: 100%; height: auto;" />`;
 
