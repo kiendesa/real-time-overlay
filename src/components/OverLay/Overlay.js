@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayContext } from '../../context/OverlayContext'; // Import context
 import Inputs from '../OverLayInput/Inputs';
 import './Overlay.css';
@@ -7,6 +7,26 @@ import background from '../../assets/images/WEB会議用背景画像_背景の�
 function Overlay() {
     const { headName, department, center, group, position, name, furigana } = useContext(OverlayContext); // Lấy giá trị từ Context
     const canvasRef = useRef(null);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Hàm để mở modal
+    const openModal = () => {
+        // check validate ở đây...
+        if (headName === '' || department === '' || center === '' || group === '' || position === '' || name === '' || furigana === '') {
+            alert('全てのフィールドに入力してください。');
+            return; // Stop if validation fails
+        }
+        setIsModalOpen(true);
+    };
+
+    // Hàm xử lý sự kiện click vào overlay
+    const handleOverlayClick = (e) => {
+        // Kiểm tra nếu người dùng click vào vùng bên ngoài modal (overlay)
+        if (e.target.dataset.overlay === 'true') {
+            setIsModalOpen(false);
+        }
+    };
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -45,13 +65,7 @@ function Overlay() {
     }, [headName, department, center, group, position, name, furigana]); // Mỗi lần name và age thay đổi, canvas sẽ được cập nhật lại
 
     const handleDownload = () => {
-
-        // check validate ở đây...
-        if (headName === '' || department === '' || center === '' || group === '' || position === '' || name === '' || furigana === '') {
-            alert('全てのフィールドに入力してください。');
-            return; // Stop if validation fails
-        }
-
+        setIsModalOpen(false);
         const canvas = canvasRef.current;
 
         // Convert canvas to image data URL
@@ -80,12 +94,39 @@ function Overlay() {
                     </div>
                 </div>
             </div>
+            {/* Footer */}
             <footer className="footer-frame py-2 fixed bottom-0 w-full">
                 <div className="flex justify-center">
                     <button id="download-btn"
-                        className="btn-footer px-4 py-2" onClick={handleDownload}>バーチャル名刺背景生成</button>
+                        className="btn-footer px-4 py-2" onClick={openModal}>バーチャル名刺背景生成</button>
                 </div>
             </footer>
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center" data-overlay="true" onClick={handleOverlayClick}>
+                    <div className="modal bg-white p-6 rounded-lg shadow-lg text-center mt-8">
+                        {/* Text phía trên */}
+                        <div className="model-text-top text-gray-700 mb-4">
+                            生成後は右クリックで画像を保存してください。
+                        </div>
+
+                        {/* Nút Download */}
+                        <button
+                            id="download-btn-modal"
+                            className="btn-footer-modal text-white px-4 py-2 rounded transition duration-300"
+                            onClick={handleDownload}
+                        >
+                            バーチャル名刺背景生成
+                        </button>
+
+                        {/* Text phía dưới */}
+                        <div className="model-text-bottom text-gray-500 mt-4">
+                            #バーチャル名刺背景ジェネレーター で<br />
+                            SNSでシェアしましょう！
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
