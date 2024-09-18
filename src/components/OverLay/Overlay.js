@@ -16,13 +16,23 @@ function Overlay() {
     const [isValidationOpen, setIsValidationOpen] = useState(false);
     const [validationMessage, setValidationMessage] = useState('');
 
+
+
     // Hàm để mở modal
     const openModal = () => {
+        const array = [
+            { field: headName, label: "本部" },
+            { field: department, label: "部署" },
+            { field: name, label: "名前" },
+            { field: furigana, label: "フリガナ" }
+        ];
         // check validate ở đây...
-        if (headName === '' || department === '' || center === '' || group === '' || position === '' || name === '' || furigana === '') {
-            setValidationMessage('全てのフィールドに入力してください。');
-            setIsValidationOpen(true);
-            return;
+        for (const { field, label } of array) {
+            if (field === '') {
+                setValidationMessage(`${label}のフィールドに入力してください。`);
+                setIsValidationOpen(true);
+                return;
+            }
         }
         setIsModalOpen(true);
     };
@@ -93,7 +103,7 @@ function Overlay() {
             yPosition += wrapText(ctx, department, xPosition, yPosition, maxWidth, lineSpacing);
             yPosition += wrapText(ctx, center, xPosition, yPosition, maxWidth, lineSpacing);
             yPosition += wrapText(ctx, group, xPosition, yPosition, maxWidth, lineSpacing);
-            yPosition += wrapText(ctx, position, xPosition, yPosition, maxWidth, lineSpacing);
+            yPosition += wrapText(ctx, position, xPosition, yPosition + 20, maxWidth, lineSpacing);
             // Set a different font size for the name field
             ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif';
             yPosition += wrapText(ctx, name, xPosition, yPosition + 30, maxWidth, lineSpacing + 20);
