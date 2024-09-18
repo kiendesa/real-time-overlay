@@ -40,7 +40,7 @@ function Overlay() {
         img.src = background;
 
         img.onload = () => {
-            const lineSpacing = 50;
+            let lineSpacing = 55;
             const xPosition = 180;
             let yPosition = 300;
 
@@ -51,21 +51,59 @@ function Overlay() {
             // Draw the background image
             ctx.drawImage(img, 0, 0, img.width, img.height);
 
-            // Set text styles and position for real-time data (name, age)
+            // Set maxWidth for the text
+            const maxWidth = 800;
+
+            // Function to split text into multiple lines based on maxWidth
+            const wrapText = (ctx, text, x, y, maxWidth, lineSpacing) => {
+                let words = text.split(''); // Split the text into characters (to break at any point)
+                let lines = [];
+                let line = '';
+
+                for (let i = 0; i < words.length; i++) {
+                    const testLine = line + words[i];
+                    const testWidth = ctx.measureText(testLine).width;
+
+                    if (testWidth > maxWidth && line.length > 0) {
+                        lines.push(line);
+                        line = words[i]; // Start a new line with the current character
+                    } else {
+                        line = testLine;
+                    }
+                }
+
+                // Push the last line
+                if (line.length > 0) {
+                    lines.push(line);
+                }
+
+                // Render each line
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, x, y + index * lineSpacing);
+                });
+
+                return lines.length * lineSpacing; // Return total height used
+            };
+
+            // Set text styles
             ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
 
-            ctx.fillText(`${headName}`, xPosition, yPosition); // Đặt text gần góc trên bên trái
-            ctx.fillText(`${department}`, xPosition, yPosition += lineSpacing);   // Tương tự cho email
-            ctx.fillText(`${center}`, xPosition, yPosition += lineSpacing);
-            ctx.fillText(`${group}`, xPosition, yPosition += lineSpacing);
-            ctx.fillText(`${position}`, xPosition, yPosition += lineSpacing);
-            ctx.fillText(`${furigana}`, xPosition, 640);
+            // Render and wrap text for each field
+            yPosition += wrapText(ctx, headName, xPosition, yPosition, maxWidth, lineSpacing);
+            yPosition += wrapText(ctx, department, xPosition, yPosition, maxWidth, lineSpacing);
+            yPosition += wrapText(ctx, center, xPosition, yPosition, maxWidth, lineSpacing);
+            yPosition += wrapText(ctx, group, xPosition, yPosition, maxWidth, lineSpacing);
+            yPosition += wrapText(ctx, position, xPosition, yPosition, maxWidth, lineSpacing);
             // Set a different font size for the name field
-            ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif'; // Change font and size for name
-            ctx.fillText(`${name}`, xPosition, 590);  // For name
+            ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif';
+            yPosition += wrapText(ctx, name, xPosition, yPosition + 30, maxWidth, lineSpacing + 20);
+            // ctx.fillText(name, xPosition, 590); // Draw name with larger font
+            ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
+            wrapText(ctx, furigana, xPosition, yPosition + 30, maxWidth, lineSpacing);
+
 
         };
-    }, [headName, department, center, group, position, name, furigana]); // Mỗi lần name và age thay đổi, canvas sẽ được cập nhật lại
+    }, [headName, department, center, group, position, name, furigana]);
 
     const handleDownload = () => {
         setIsModalOpen(false);
