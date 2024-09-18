@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-import html2canvas from 'html2canvas';
 
 // Tạo Context
 export const OverlayContext = createContext();

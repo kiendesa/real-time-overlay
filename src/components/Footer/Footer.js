@@ -1,6 +1,5 @@
 import React from 'react';
 import './Footer.css';
-import { OverlayContext } from '../../context/OverlayContext';
 
 function Footer({ openModal }) {
 
