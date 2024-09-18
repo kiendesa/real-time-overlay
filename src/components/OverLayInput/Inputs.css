@@ -1,0 +1,14 @@
+.input-frame {
+
+}
+.input-frame-data {
+  border-radius: .25rem !important;
+  background-color: #ffffff
+}
+
+.input-frame-data {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+

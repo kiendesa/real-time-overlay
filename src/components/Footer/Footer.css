@@ -1,0 +1,19 @@
+.footer-frame {
+    background-color: #ffffff;
+    border-top: 1px solid #dee2e6 !important;
+}
+
+.btn-footer {
+    background-color: #20c9c3 !important;
+    border-color: #20c9c3 !important; 
+    padding: 0.2rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0;  
+}
+
+.btn-footer:hover {
+  color: #fff;
+  background-color: #1ba8a3;
+  border-color: #199d98;
+}
