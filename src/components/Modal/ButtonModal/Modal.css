@@ -1,0 +1,43 @@
+.btn-footer-modal {
+   background-color: #1ba8a3;
+  border-color: #199d98;
+  color: #000;
+  font-size: 15px;
+}
+
+.btn-footer-modal:hover {
+  color: #fff;
+  background-color: #1ba8a3;
+  border-color: #199d98;
+}
+
+.modal {
+  padding: 36px;
+}
+
+.model-text-top {
+  font-weight: 700 !important;
+  text-align: center !important;
+  font-size: 14px;
+}
+
+.model-text-bottom {
+  font-size: 14px;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-enter {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+

@@ -1,31 +1,34 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { OverlayContext } from '../../context/OverlayContext'; // Import context
 import Inputs from '../OverLayInput/Inputs';
+import Modal from '../Modal/ButtonModal/Modal';
+import ValidationModal from '../Modal/ValidateModal/ValidationModal';
+import Footer from '../Footer/Footer';
 import './Overlay.css';
 import background from '../../assets/images/WEB会議用背景画像_背景のみ.png';
+
 
 function Overlay() {
     const { headName, department, center, group, position, name, furigana } = useContext(OverlayContext); // Lấy giá trị từ Context
     const canvasRef = useRef(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isValidationOpen, setIsValidationOpen] = useState(false);
+    const [validationMessage, setValidationMessage] = useState('');
 
     // Hàm để mở modal
     const openModal = () => {
         // check validate ở đây...
         if (headName === '' || department === '' || center === '' || group === '' || position === '' || name === '' || furigana === '') {
-            alert('全てのフィールドに入力してください。');
-            return; // Stop if validation fails
+            setValidationMessage('全てのフィールドに入力してください。');
+            setIsValidationOpen(true);
+            return;
         }
         setIsModalOpen(true);
     };
 
-    // Hàm xử lý sự kiện click vào overlay
-    const handleOverlayClick = (e) => {
-        // Kiểm tra nếu người dùng click vào vùng bên ngoài modal (overlay)
-        if (e.target.dataset.overlay === 'true') {
-            setIsModalOpen(false);
-        }
+    const closeValidationModal = () => {
+        setIsValidationOpen(false);
     };
 
     useEffect(() => {
@@ -95,38 +98,10 @@ function Overlay() {
                 </div>
             </div>
             {/* Footer */}
-            <footer className="footer-frame py-2 fixed bottom-0 w-full">
-                <div className="flex justify-center">
-                    <button id="download-btn"
-                        className="btn-footer px-4 py-2" onClick={openModal}>バーチャル名刺背景生成</button>
-                </div>
-            </footer>
+            <Footer openModal={openModal} />
             {/* Modal */}
-            {isModalOpen && (
-                <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center" data-overlay="true" onClick={handleOverlayClick}>
-                    <div className="modal bg-white p-6 rounded-lg shadow-lg text-center mt-8">
-                        {/* Text phía trên */}
-                        <div className="model-text-top text-gray-700 mb-4">
-                            生成後は右クリックで画像を保存してください。
-                        </div>
-
-                        {/* Nút Download */}
-                        <button
-                            id="download-btn-modal"
-                            className="btn-footer-modal text-white px-4 py-2 rounded transition duration-300"
-                            onClick={handleDownload}
-                        >
-                            バーチャル名刺背景生成
-                        </button>
-
-                        {/* Text phía dưới */}
-                        <div className="model-text-bottom text-gray-500 mt-4">
-                            #バーチャル名刺背景ジェネレーター で<br />
-                            SNSでシェアしましょう！
-                        </div>
-                    </div>
-                </div>
-            )}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onDownload={handleDownload} />
+            {isValidationOpen && <ValidationModal message={validationMessage} onClose={closeValidationModal} />}
         </div>
     );
 }
