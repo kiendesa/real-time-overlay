@@ -51,8 +51,8 @@ function Overlay() {
 
         img.onload = () => {
             let lineSpacing = 55;
-            const xPosition = 180;
-            let yPosition = 300;
+            const xPosition = 160;
+            let yPosition = 260;
 
             // Set canvas size based on the image
             canvas.width = img.width;
@@ -129,28 +129,31 @@ function Overlay() {
 
     return (
         <div>
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col h-screen" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
                 {/* Phần giữa (Body) */}
-                <div className="flex-1 mt-[45px] mb-[55px] overflow-hidden">
-                    <div className="grid grid-flow-row-dense grid-cols-5 grid-rows-1 h-full">
+                <div className="overlay-frame flex-1 mt-[40px] mb-[20px] overflow-y-auto">
+                    <div className="grid grid-flow-row grid-cols-1 h-full">
                         {/* Phần hình ảnh */}
-                        <div className="image-frame col-span-3">
+                        <div className="image-frame row-span-1">
                             {/* Canvas nơi vẽ hình ảnh và text real-time */}
                             <canvas ref={canvasRef} className="image-overlay w-full" />
                         </div>
                         {/* Phần có thanh cuộn */}
-                        <div className="col-span-2 input-frame flex flex-col p-4 overflow-y-auto h-full">
+                        <div className="input-frame row-span-1 flex flex-col p-4">
                             <Inputs />
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
             {/* Footer */}
             <Footer openModal={openModal} />
             {/* Modal */}
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onDownload={handleDownload} />
             {isValidationOpen && <ValidationModal message={validationMessage} onClose={closeValidationModal} />}
-        </div>
+        </div >
     );
 }
 

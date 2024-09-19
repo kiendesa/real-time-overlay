@@ -1,6 +1,9 @@
+.overlay-frame {
+  background-color: rgb(231, 239, 239);
+}
+
 .image-overlay {
   border: 4px solid #000;
-  /* margin: 1vh; */
 }
 
 .image-frame {
@@ -8,20 +11,19 @@
   margin: 2vh;
 }
 
-.input-frame {
-  /* overflow-y: scroll; */
-  background-color: rgb(231, 239, 239);
-}
+/* .input-frame {
+  
+} */
 
 .overlay-text {
     position: absolute;
     top: 10vh;
-    left: 10vh; /* Cách bên trái một đoạn vừa đủ (tùy chỉnh theo nhu cầu của bạn) */
+    left: 10vh; 
     text-align: left;
-    background-color: rgba(0, 0, 0, 0.5); /* Đảm bảo phần nền có độ trong suốt */
-    padding: 16px; /* Khoảng cách trong */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 16px;
     color: white;
-    transform: translateY(20px); /* Đẩy xuống một chút để có vị trí dễ nhìn hơn */
+    transform: translateY(20px); 
 }
 
 .confirm-button {
@@ -30,6 +32,8 @@
   margin: 10px;
   cursor: pointer;
 }
+
+
 
 
 
