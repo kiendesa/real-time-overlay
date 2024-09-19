@@ -10,8 +10,8 @@ export const OverlayProvider = ({ children }) => {
     const [center, setCenter] = useState('東日本センター');
     const [group, setGroup] = useState('東日本C2グループ');
     const [position, setPosition] = useState('部長');
-    const [name, setName] = useState('山田 保隆');
-    const [furigana, setFurigana] = useState('Yasutaka Yamada');
+    const [name, setName] = useState('電算　太郎');
+    const [furigana, setFurigana] = useState('Densan Taro');
     const [error, setError] = useState(false);
 
 

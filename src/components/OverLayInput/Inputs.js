@@ -3,20 +3,24 @@ import { OverlayContext } from '../../context/OverlayContext';// Import context
 import './Inputs.css';
 
 
-const InputField = ({ label, value, setValue, handleClear }) => {
+const InputField = ({ label, value, setValue, handleClear, validate }) => {
 
     const [error, setError] = useState(false);
     // Handle input change and validate
     const handleChange = (e) => {
         const inputValue = e.target.value;
         setValue(inputValue);
-        setError(inputValue === ''); // Set error if the input is empty
+        if (validate) {
+            setError(inputValue === ''); // Set error if the input is empty and validation is required
+        }
     };
 
     // Handle clear button click
     const handleClearClick = () => {
         handleClear();
-        setError(true); // Set error to true when clearing the input
+        if (validate) {
+            setError(true); // Set error to true when clearing the input if validation is required
+        }
     };
 
     return (
@@ -62,13 +66,13 @@ const Inputs = () => {
 
     return (
         <div className='input-frame mb-2'>
-            <InputField label="本部" value={headName} setValue={setHeadName} handleClear={clearHeadName} />
-            <InputField label="部署" value={department} setValue={setDepartment} handleClear={clearDepartment} />
-            <InputField label="センター" value={center} setValue={setCenter} handleClear={clearCenter} />
-            <InputField label="グループ" value={group} setValue={setGroup} handleClear={clearGroup} />
-            <InputField label="役職" value={position} setValue={setPosition} handleClear={clearPosition} />
-            <InputField label="名前" value={name} setValue={setName} handleClear={clearName} />
-            <InputField label="フリガナ" value={furigana} setValue={setFurigana} handleClear={clearFurigana} />
+            <InputField label="本部" value={headName} setValue={setHeadName} handleClear={clearHeadName} validate={true} />
+            <InputField label="部署" value={department} setValue={setDepartment} handleClear={clearDepartment} validate={true} />
+            <InputField label="センター" value={center} setValue={setCenter} handleClear={clearCenter} validate={false} />
+            <InputField label="グループ" value={group} setValue={setGroup} handleClear={clearGroup} validate={false} />
+            <InputField label="役職" value={position} setValue={setPosition} handleClear={clearPosition} validate={false} />
+            <InputField label="名前" value={name} setValue={setName} handleClear={clearName} validate={true} />
+            <InputField label="フリガナ" value={furigana} setValue={setFurigana} handleClear={clearFurigana} validate={true} />
         </div>
     );
 };

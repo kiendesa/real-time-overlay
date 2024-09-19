@@ -28,12 +28,6 @@ const Modal = ({ isOpen, onClose, onDownload }) => {
                 >
                     バーチャル名刺背景生成
                 </button>
-
-                {/* Text phía dưới */}
-                <div className="model-text-bottom mt-4">
-                    #バーチャル名刺背景ジェネレーター で<br />
-                    SNSでシェアしましょう！
-                </div>
             </div>
         </div>
     );
