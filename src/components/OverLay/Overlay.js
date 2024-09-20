@@ -118,23 +118,24 @@ function Overlay() {
 
     return (
         <div>
-            <div className="flex flex-col h-screen" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
-                {/* Phần giữa (Body) */}
-                <div className="overlay-frame flex-1 mt-[40px] mb-[20px] overflow-y-auto">
-                    <div className="grid grid-flow-row grid-cols-1 h-full">
-                        {/* Phần hình ảnh */}
-                        <div className="image-frame row-span-1">
-                            {/* Canvas nơi vẽ hình ảnh và text real-time */}
-                            <canvas ref={canvasRef} className="image-overlay w-full" />
-                        </div>
-                        {/* Phần có thanh cuộn */}
-                        <div className="input-frame row-span-1 flex flex-col p-4">
-                            <Inputs />
+            <div class="grid grid-cols-6 gap-4">
+                <div class="col-start-2 col-span-4">
+                    {/* Phần giữa (Body) */}
+                    <div className="overlay-frame flex-1 mt-[40px] mb-[20px] overflow-y-auto">
+                        <div className="grid grid-flow-row grid-cols-1 h-full">
+                            {/* Phần hình ảnh */}
+                            <div className="image-frame row-span-1">
+                                {/* Canvas nơi vẽ hình ảnh và text real-time */}
+                                <canvas ref={canvasRef} className="image-overlay w-full" />
+                            </div>
+                            {/* Phần có thanh cuộn */}
+                            <div className="input-frame row-span-1 flex flex-col p-4">
+                                <Inputs />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             {/* Footer */}
             <Footer openModal={openModal} />
             {/* Modal */}
