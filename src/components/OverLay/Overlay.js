@@ -9,15 +9,12 @@ import background from '../../assets/images/WEB会議用背景画像_背景の�
 
 
 function Overlay() {
-    const { headName, department, center, group, position, name, furigana } = useContext(OverlayContext); // Lấy giá trị từ Context
+    const { headName, department, position, name, furigana, arrayValues } = useContext(OverlayContext); // Lấy giá trị từ Context
     const canvasRef = useRef(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isValidationOpen, setIsValidationOpen] = useState(false);
     const [validationMessage, setValidationMessage] = useState('');
-
-
-
     // Hàm để mở modal
     const openModal = () => {
         const array = [
@@ -53,20 +50,14 @@ function Overlay() {
             let lineSpacing = 55;
             const xPosition = 160;
             let yPosition = 260;
-
-            // Set canvas size based on the image
             canvas.width = img.width;
             canvas.height = img.height;
 
-            // Draw the background image
             ctx.drawImage(img, 0, 0, img.width, img.height);
 
-            // Set maxWidth for the text
             const maxWidth = 800;
-
-            // Function to split text into multiple lines based on maxWidth
             const wrapText = (ctx, text, x, y, maxWidth, lineSpacing) => {
-                let words = text.split(''); // Split the text into characters (to break at any point)
+                let words = text.split('');
                 let lines = [];
                 let line = '';
 
@@ -76,44 +67,42 @@ function Overlay() {
 
                     if (testWidth > maxWidth && line.length > 0) {
                         lines.push(line);
-                        line = words[i]; // Start a new line with the current character
+                        line = words[i];
                     } else {
                         line = testLine;
                     }
                 }
 
-                // Push the last line
                 if (line.length > 0) {
                     lines.push(line);
                 }
 
-                // Render each line
                 lines.forEach((line, index) => {
                     ctx.fillText(line, x, y + index * lineSpacing);
                 });
 
-                return lines.length * lineSpacing; // Return total height used
+                return lines.length * lineSpacing;
             };
 
-            // Set text styles
             ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
+            arrayValues.forEach((element, index) => {
+                if (element) {
+                    yPosition += wrapText(ctx, element, xPosition, yPosition, maxWidth, lineSpacing);
+                }
+            });
 
-            // Render and wrap text for each field
-            yPosition += wrapText(ctx, headName, xPosition, yPosition, maxWidth, lineSpacing);
-            yPosition += wrapText(ctx, department, xPosition, yPosition, maxWidth, lineSpacing);
-            yPosition += wrapText(ctx, center, xPosition, yPosition, maxWidth, lineSpacing);
-            yPosition += wrapText(ctx, group, xPosition, yPosition, maxWidth, lineSpacing);
             yPosition += wrapText(ctx, position, xPosition, yPosition + 20, maxWidth, lineSpacing);
+
             // Set a different font size for the name field
             ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif';
             yPosition += wrapText(ctx, name, xPosition, yPosition + 30, maxWidth, lineSpacing + 20);
-            // ctx.fillText(name, xPosition, 590); // Draw name with larger font
+
+            // Draw furigana with the smaller font
             ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
             wrapText(ctx, furigana, xPosition, yPosition + 30, maxWidth, lineSpacing);
-
-
         };
-    }, [headName, department, center, group, position, name, furigana]);
+    }, [arrayValues, position, name, furigana]);  // Only re-render when arrayValues or other relevant states change
+
 
     const handleDownload = () => {
         setIsModalOpen(false);
@@ -145,8 +134,6 @@ function Overlay() {
                     </div>
                 </div>
             </div>
-
-
 
             {/* Footer */}
             <Footer openModal={openModal} />
