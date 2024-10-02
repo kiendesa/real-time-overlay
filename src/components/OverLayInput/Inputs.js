@@ -51,12 +51,20 @@ const Inputs = () => {
         name, setName,
         furigana, setFurigana,
         textareaValue, setTextareaValue,
-        arrayValues, setArrayValues
+        arrayValues, setArrayValues,
+        headName, setHeadName,
+        department, setDepartment,
+        center, setCenter,
+        group, setGroup
     } = useContext(OverlayContext);
 
     // Clear all fields
     const clearAll = () => {
         setTextareaValue('');
+        setHeadName('');
+        setDepartment('');
+        setCenter('');
+        setGroup('');
     };
 
     // Clear functions for each field
@@ -64,17 +72,19 @@ const Inputs = () => {
     const clearName = () => setName('');
     const clearFurigana = () => setFurigana('');
 
-    useEffect(() => {
-        const newValues = (textareaValue || '').split('\n');
-        if (JSON.stringify(newValues) !== JSON.stringify(arrayValues)) {
-            setArrayValues(newValues);
-        }
-    }, [textareaValue]);
-
-
+    // Update textarea and individual field values
     const handleChange = (event) => {
-        setTextareaValue(event.target.value);
-        setArrayValues([]);
+        const newValue = event.target.value;
+        setTextareaValue(newValue);
+
+        // Split the input into individual lines and update fields
+        const lines = newValue.split('\n');
+        if (lines.length > 0) {
+            setHeadName(lines[0]);      // First line is headName
+            setDepartment(lines[1]);    // Second line is department
+            setCenter(lines[2]);        // Third line is center
+            setGroup(lines[3]);         // Fourth line is group
+        }
     };
 
     return (
@@ -82,20 +92,46 @@ const Inputs = () => {
             <div className='flex-1 p-2'>
                 <div className="input-frame-data inputs scrollable p-4 mb-3">
                     <div className="flex items-center justify-between mb-2">
-                        <label htmlFor="name" className="text-left">肩書：</label>
-                        <button onClick={clearAll} className="bg-gray-200 border border-gray-300 p-1 px-3 hover:bg-gray-300">
+                        <label className="block text-left">部署：</label>
+                        <button onClick={clearAll} className="bg-gray-200 border border-gray-300 p-0.5 px-1 hover:bg-gray-300 text-xs">
                             削除
                         </button>
                     </div>
-                    <textarea
-                        className='text-area-frame'
-                        value={textareaValue}
-                        onChange={handleChange}
-                        rows={5}
-                        cols={47}
-                    />
+
+                    {/* Single container with border */}
+                    <div className="border border-gray-600 rounded p-2 space-y-3">
+                        <input
+                            type="text"
+                            value={headName}
+                            onChange={(e) => setHeadName(e.target.value)}
+                            className="w-full outline-none"
+                            placeholder="本部"
+                        />
+                        <input
+                            type="text"
+                            value={department}
+                            onChange={(e) => setDepartment(e.target.value)}
+                            className="w-full outline-none"
+                            placeholder="部署"
+                        />
+                        <input
+                            type="text"
+                            value={center}
+                            onChange={(e) => setCenter(e.target.value)}
+                            className="w-full outline-none"
+                            placeholder="センター"
+                        />
+                        <input
+                            type="text"
+                            value={group}
+                            onChange={(e) => setGroup(e.target.value)}
+                            className="w-full outline-none"
+                            placeholder="グループ"
+                        />
+                    </div>
                 </div>
             </div>
+
             <div className='flex-1 p-2'>
                 <Input label="役職" value={position} setValue={setPosition} handleClear={clearPosition} />
                 <Input label="名前" value={name} setValue={setName} handleClear={clearName} validate={true} />
