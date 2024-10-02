@@ -24,7 +24,7 @@ const Input = ({ label, value, setValue, handleClear, validate }) => {
 
     return (
         <div className="input-frame-data inputs scrollable p-1 mb-1 w-1/4">
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between">
                 <label htmlFor="name" className="text-left text-xs">{label}：</label>
                 <button onClick={handleClearClick} className="bg-gray-200 border border-gray-300 p-0.5 px-1 hover:bg-gray-300 text-xs">
                     削除
@@ -34,7 +34,7 @@ const Input = ({ label, value, setValue, handleClear, validate }) => {
                 id="input-field"
                 value={value}
                 onChange={handleChange}
-                className={`border ${error ? 'border-red-500' : 'border-gray-300'} p-1 text-xs w-full`}
+                className={`border ${error ? 'border-red-500' : 'border-gray-500'} p-1 text-xs w-full`}
                 placeholder="入力してください。"
             />
             {/* Display error message when the input is empty */}
@@ -88,10 +88,11 @@ const Inputs = () => {
                         </button>
                     </div>
                     <textarea
+                        className='text-area-frame'
                         value={textareaValue}
                         onChange={handleChange}
                         rows={5}
-                        cols={30}
+                        cols={47}
                     />
                 </div>
             </div>

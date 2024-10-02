@@ -9,21 +9,18 @@ import background from '../../assets/images/WEB会議用背景画像_背景の�
 
 
 function Overlay() {
-    const { headName, department, position, name, furigana, arrayValues } = useContext(OverlayContext); // Lấy giá trị từ Context
+    const { position, name, furigana, arrayValues } = useContext(OverlayContext); //  Contextから、値を取る
     const canvasRef = useRef(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isValidationOpen, setIsValidationOpen] = useState(false);
     const [validationMessage, setValidationMessage] = useState('');
-    // Hàm để mở modal
+    // modalのfunction
     const openModal = () => {
         const array = [
-            { field: headName, label: "本部" },
-            { field: department, label: "部署" },
             { field: name, label: "名前" },
-            { field: furigana, label: "フリガナ" }
         ];
-        // check validate ở đây...
+        // validate ...
         for (const { field, label } of array) {
             if (field === '') {
                 setValidationMessage(`${label}のフィールドに入力してください。`);
@@ -42,7 +39,7 @@ function Overlay() {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        // Load background image
+        // 画像画面をロードする。
         const img = new Image();
         img.src = background;
 
@@ -93,52 +90,48 @@ function Overlay() {
 
             yPosition += wrapText(ctx, position, xPosition, yPosition + 20, maxWidth, lineSpacing);
 
-            // Set a different font size for the name field
+            // 名前フィールドに別のフォントサイズを設定する。
             ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif';
             yPosition += wrapText(ctx, name, xPosition, yPosition + 30, maxWidth, lineSpacing + 20);
 
-            // Draw furigana with the smaller font
+            // フリガナフィールドに別のサイズを設定する。
             ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
-            wrapText(ctx, furigana, xPosition, yPosition + 30, maxWidth, lineSpacing);
+            wrapText(ctx, furigana, xPosition, yPosition + 20, maxWidth, lineSpacing);
         };
-    }, [arrayValues, position, name, furigana]);  // Only re-render when arrayValues or other relevant states change
+    }, [arrayValues, position, name, furigana]);
 
 
     const handleDownload = () => {
         setIsModalOpen(false);
         const canvas = canvasRef.current;
-
-        // Convert canvas to image data URL
         const image = canvas.toDataURL('image/png');
 
-        // Open a new tab with the image
+        // 画像のある新しいタブを開きます。
         const newTab = window.open();
         newTab.document.body.innerHTML = `<img src="${image}" alt="Generated Image" style="width: 100%; height: auto;" />`;
     };
 
     return (
         <div>
-            <div class="grid grid-cols-6 gap-4">
-                <div class="col-start-2 col-span-4">
-                    {/* Phần giữa (Body) */}
-                    <div className="overlay-frame flex-1 mt-[40px] mb-[20px] overflow-y-auto">
-                        <div className="grid grid-flow-row grid-cols-1 h-full">
-                            {/* Phần hình ảnh */}
-                            <div className="image-frame row-span-1">
-                                {/* Canvas nơi vẽ hình ảnh và text real-time */}
-                                <canvas ref={canvasRef} className="image-overlay w-full" />
+
+            <div className="bg-gray-100 h-screen flex items-center justify-center">
+                <div className="container  mx-auto p-4">
+                    <div className="overlay-frame shadow-lg rounded-lg p-6">
+                        {/* (Canvas) */}
+                        <div className="flex justify-center">
+                            <div className="w-2/3 md:w-1/2">
+                                <canvas ref={canvasRef} className="border shadow-lg w-full" height="200" />
                             </div>
-                            {/* Phần có thanh cuộn */}
-                            <div className="input-frame row-span-1 flex flex-col p-4">
+                        </div>
+                        <div class="grid grid-cols-6 gap-4">
+                            <div class="col-start-2 col-span-4">
                                 <Inputs />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* Footer */}
             <Footer openModal={openModal} />
-            {/* Modal */}
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onDownload={handleDownload} />
             {isValidationOpen && <ValidationModal message={validationMessage} onClose={closeValidationModal} />}
         </div >
