@@ -6,7 +6,7 @@ const AppRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/meet-image" element={<HomePage />} />
                 {/* Các route khác */}
             </Routes>
         </Router>
