@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { OverlayContext } from '../../context/OverlayContext';// Import context
 import './Inputs.css';
 
@@ -50,8 +50,6 @@ const Inputs = () => {
         position, setPosition,
         name, setName,
         furigana, setFurigana,
-        textareaValue, setTextareaValue,
-        arrayValues, setArrayValues,
         headName, setHeadName,
         department, setDepartment,
         center, setCenter,
@@ -60,7 +58,6 @@ const Inputs = () => {
 
     // Clear all fields
     const clearAll = () => {
-        setTextareaValue('');
         setHeadName('');
         setDepartment('');
         setCenter('');
@@ -71,21 +68,6 @@ const Inputs = () => {
     const clearPosition = () => setPosition('');
     const clearName = () => setName('');
     const clearFurigana = () => setFurigana('');
-
-    // Update textarea and individual field values
-    const handleChange = (event) => {
-        const newValue = event.target.value;
-        setTextareaValue(newValue);
-
-        // Split the input into individual lines and update fields
-        const lines = newValue.split('\n');
-        if (lines.length > 0) {
-            setHeadName(lines[0]);      // First line is headName
-            setDepartment(lines[1]);    // Second line is department
-            setCenter(lines[2]);        // Third line is center
-            setGroup(lines[3]);         // Fourth line is group
-        }
-    };
 
     return (
         <div className='input-frame mb-2 flex w-full'>

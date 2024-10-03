@@ -12,8 +12,6 @@ export const OverlayProvider = ({ children }) => {
     const [position, setPosition] = useState('部長');
     const [name, setName] = useState('電算　太郎');
     const [furigana, setFurigana] = useState('Densan Taro');
-    const [textareaValue, setTextareaValue] = useState(`${headName}\n${department}\n${center}\n${group}`);
-    const [arrayValues, setArrayValues] = useState([headName, department, center, group]);
     const [error, setError] = useState(false);
 
 
@@ -27,9 +25,7 @@ export const OverlayProvider = ({ children }) => {
             position, setPosition,
             name, setName,
             furigana, setFurigana,
-            error, setError,
-            textareaValue, setTextareaValue,
-            arrayValues, setArrayValues
+            error, setError
         }}>
             {children}
         </OverlayContext.Provider>

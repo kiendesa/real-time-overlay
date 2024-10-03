@@ -9,7 +9,7 @@ import background from '../../assets/images/WEB会議用背景画像_背景の�
 
 
 function Overlay() {
-    const { headName, department, center, group, position, name, furigana, arrayValues } = useContext(OverlayContext); //  Contextから、値を取る
+    const { headName, department, center, group, position, name, furigana } = useContext(OverlayContext); //  Contextから、値を取る
     const canvasRef = useRef(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,67 +76,8 @@ function Overlay() {
             ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
             ctx.fillText(`${furigana}`, xPosition, yPosition += lineSpacing + 15);
 
-
-
-            // yPosition += wrapText(ctx, position, xPosition, yPosition + 20, maxWidth, lineSpacing);
-
-            // // 。
-            // 
-            // yPosition += wrapText(ctx, name, xPosition, yPosition + 30, maxWidth, lineSpacing + 20);
-
-            // 
-            // 
-            // wrapText(ctx, furigana, xPosition, yPosition + 20, maxWidth, lineSpacing);
-
-            // ctx.drawImage(img, 0, 0, img.width, img.height);
-
-            // const maxWidth = 800;
-            // const wrapText = (ctx, text, x, y, maxWidth, lineSpacing) => {
-            //     let words = text.split('');
-            //     let lines = [];
-            //     let line = '';
-
-            //     for (let i = 0; i < words.length; i++) {
-            //         const testLine = line + words[i];
-            //         const testWidth = ctx.measureText(testLine).width;
-
-            //         if (testWidth > maxWidth && line.length > 0) {
-            //             lines.push(line);
-            //             line = words[i];
-            //         } else {
-            //             line = testLine;
-            //         }
-            //     }
-
-            //     if (line.length > 0) {
-            //         lines.push(line);
-            //     }
-
-            //     lines.forEach((line, index) => {
-            //         ctx.fillText(line, x, y + index * lineSpacing);
-            //     });
-
-            //     return lines.length * lineSpacing;
-            // };
-
-            // ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
-            // arrayValues.forEach((element, index) => {
-            //     if (element) {
-            //         yPosition += wrapText(ctx, element, xPosition, yPosition, maxWidth, lineSpacing);
-            //     }
-            // });
-
-            // yPosition += wrapText(ctx, position, xPosition, yPosition + 20, maxWidth, lineSpacing);
-
-            // // 名前フィールドに別のフォントサイズを設定する。
-            // ctx.font = 'bold 65px "Yu Gothic", "游ゴシック", sans-serif';
-            // yPosition += wrapText(ctx, name, xPosition, yPosition + 30, maxWidth, lineSpacing + 20);
-
-            // // フリガナフィールドに別のサイズを設定する。
-            // ctx.font = 'bold 34px "Yu Gothic", "游ゴシック", sans-serif';
-            // wrapText(ctx, furigana, xPosition, yPosition + 20, maxWidth, lineSpacing);
         };
-    }, [headName, department, center, group, position, name, furigana,]);
+    }, [headName, department, center, group, position, name, furigana]);
 
 
     const handleDownload = () => {
