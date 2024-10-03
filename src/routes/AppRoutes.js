@@ -4,10 +4,9 @@ import HomePage from '../pages/HomePage';
 
 const AppRoutes = () => {
     return (
-        <Router>
+        <Router basename="/meet-image">
             <Routes>
-                <Route path="/meet-image" element={<HomePage />} />
-                {/* Các route khác */}
+                <Route path="/" element={<HomePage />} />
             </Routes>
         </Router>
     );
